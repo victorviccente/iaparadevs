@@ -1,148 +1,215 @@
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Video, Folder, Headphones, Award, RefreshCw, Clock, Target, Shield, Gift } from 'lucide-react';
+import { Book, Code, Brain, Bot, Rocket, Terminal, Linkedin, Map, Play } from 'lucide-react';
 
-const features = [
+const modules = [
   {
-    icon: BookOpen,
-    text: "10 módulos intensivos",
-    description: "Conteúdo estruturado e progressivo",
-    color: "from-blue-400 to-blue-600"
+    id: 'mod1',
+    title: 'Introdução ao Curso',
+    icon: Book,
+    description: 'Fundamentos e conceitos iniciais de IA',
+    content: [
+      'Introdução ao Curso',
+      'Quem é o seu professor',
+      'O que vai ter no curso',
+      'Definição Básica de IA',
+      'Relevância atual'
+    ]
   },
   {
-    icon: Video,
-    text: "40 horas de conteúdo",
-    description: "Aulas práticas e objetivas",
-    color: "from-purple-400 to-purple-600"
+    id: 'mod2',
+    title: 'Fundamentos de IA e ML',
+    icon: Brain,
+    description: 'Machine Learning e Deep Learning',
+    content: [
+      'Machine Learning',
+      'Deep Learning',
+      'Rede Neural',
+      'Processamento de Linguagem Natural',
+      'Impacto no Mercado'
+    ]
   },
   {
-    icon: Folder,
-    text: "Projetos práticos",
-    description: "Aplicações do mundo real",
-    color: "from-green-400 to-green-600"
+    id: 'mod3',
+    title: 'Soft Skills e Mitos sobre IA',
+    icon: Bot,
+    description: 'Habilidades essenciais e desmistificação',
+    content: [
+      'Soft Skills na Era da IA',
+      'Mitos e Verdades sobre IA'
+    ]
   },
   {
-    icon: Headphones,
-    text: "Suporte personalizado",
-    description: "Tire suas dúvidas diretamente",
-    color: "from-yellow-400 to-yellow-600"
+    id: 'mod4',
+    title: 'GitHub e VsCode',
+    icon: Code,
+    description: 'Github Copilot e ambiente de desenvolvimento',
+    content: [
+      'Orientações Github e VsCode',
+      'Primeiros passos com o Github Copilot',
+      'Usando o Github Copilot dentro do Ambiente de Código',
+      'Como estudar com usando o Copilot',
+      'Desafio e Explicação do Desafio'
+    ]
   },
   {
-    icon: Award,
-    text: "Certificado reconhecido",
-    description: "Valorize seu currículo",
-    color: "from-red-400 to-red-600"
+    id: 'mod5',
+    title: 'Ferramentas de Desenvolvimento',
+    icon: Terminal,
+    description: 'Mapify e Gamma',
+    content: [
+      'Conhecendo o Mapify',
+      'Usando o Mapify e suas funcionalidades',
+      'Criando a conta e o Projeto no Gamma',
+      'Funcionalidades no Gamma',
+      'Gamma junto com o Canva'
+    ]
   },
   {
-    icon: RefreshCw,
-    text: "Acesso vitalício",
-    description: "Incluindo atualizações",
-    color: "from-indigo-400 to-indigo-600"
+    id: 'mod6',
+    title: 'Projeto de Landing Page e Deploy',
+    icon: Rocket,
+    description: 'V0.DEV e deploy de projetos',
+    content: [
+      'Conhecendo o V0.DEV',
+      'Iniciando Projeto Landing Page e vendo o Deploy',
+      'Publish e Deploy',
+      'Integração V0 e VsCode',
+      'Integração V0 e Bolt',
+      'Rodando o Projeto Localmente',
+      'Desafio Portfólio V0 + Bolt'
+    ]
   },
   {
-    icon: Clock,
-    text: "Aprenda no seu ritmo",
-    description: "Flexibilidade total",
-    color: "from-pink-400 to-pink-600"
+    id: 'mod7',
+    title: 'LinkedIn e Aplicações Profissionais',
+    icon: Linkedin,
+    description: 'Otimizando seu perfil profissional',
+    content: [
+      'Aprimorando seu LinkedIn com IA',
+      'Visão geral do LinkedIn',
+      'Linkedin Learning',
+      'Finalizando módulo de LinkedIN'
+    ]
   },
   {
-    icon: Target,
-    text: "Mentoria focada",
-    description: "Acompanhamento individual",
-    color: "from-cyan-400 to-cyan-600"
+    id: 'mod8',
+    title: 'Projeto de Tasks com Cursor',
+    icon: Code,
+    description: 'Desenvolvimento completo de aplicação',
+    content: [
+      'Instalando o Cursor',
+      'Conhecendo o Cursor',
+      'Apresentando Projeto Tasks',
+      'Explicando o Backend',
+      'Detalhando o Backend + API',
+      'Detalhando o FrontEnd + Git + Local',
+      'Aplicando o Cursor no Design do Tasks',
+      'Aplicando o Cursor no Python da Aplicação',
+      'Aplicando o Claude dentro da aplicação',
+      'Subindo Projeto pro Github + Validação'
+    ]
   },
   {
-    icon: Shield,
-    text: "Garantia de 7 dias",
-    description: "Satisfação garantida",
-    color: "from-orange-400 to-orange-600"
-  },
-  {
-    icon: Gift,
-    text: "Bônus exclusivos",
-    description: "Recursos adicionais",
-    color: "from-teal-400 to-teal-600"
+    id: 'mod9',
+    title: 'SyTI WorkFlow e ML',
+    icon: Map,
+    description: 'Projeto de Machine Learning',
+    content: [
+      'Apresentação SyTI WorkFlow',
+      'Introdução ao Projeto de ML',
+      'Explicando o Código de Previsão de Casas',
+      'Formatando a Planilha e Recebendo as Previsões',
+      'Como Funciona o RandomForest'
+    ]
   }
 ];
 
 const CourseStructure = () => {
-  return (
-    <section className="py-20 relative">
-      {/* Background with animated gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/50 to-black/50 -z-10" />
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639322537504-6427a16b0a28')] opacity-5 mix-blend-overlay bg-cover bg-fixed -z-20" />
+  const [selectedModule, setSelectedModule] = useState(modules[0]);
 
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-200 to-blue-400 text-transparent bg-clip-text">
+  return (
+    <section className="py-24 bg-[#0A0F1D] relative">
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a223f_1px,transparent_1px),linear-gradient(to_bottom,#1a223f_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      </div>
+
+      <div className="container mx-auto px-6 relative">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-white mb-4">
             Estrutura do Curso
           </h2>
-          <p className="text-blue-300 text-lg max-w-2xl mx-auto">
-            Uma experiência de aprendizado completa e imersiva
+          <p className="text-lg text-gray-400">
+            Conteúdo completo e atualizado
           </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-gradient-to-br from-blue-900/40 to-blue-800/40 rounded-2xl p-6 shadow-xl border border-blue-700/30 backdrop-blur-sm"
-            >
-              <div className={`bg-gradient-to-br ${feature.color} p-3 rounded-xl mb-4`}>
-                <feature.icon className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-white">{feature.text}</h3>
-              <p className="text-blue-300">{feature.description}</p>
-            </motion.div>
-          ))}
         </div>
 
-        {/* Progress Timeline */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mt-20 max-w-4xl mx-auto"
-        >
-          <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-600/20" />
-            {[1, 2, 3].map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className={`relative flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'} mb-8`}
-              >
-                <div className="w-1/2 relative">
-                  <div className={`absolute top-0 ${index % 2 === 0 ? '-right-6' : '-left-6'} w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center`}>
-                    <span className="text-white font-bold">{step}</span>
+        {/* Course Interface */}
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-[#0F1729] rounded-2xl shadow-xl overflow-hidden border border-gray-800">
+            <div className="grid md:grid-cols-[280px,1fr]">
+              {/* Sidebar */}
+              <div className="border-r border-gray-800">
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-6">
+                    <Terminal className="w-5 h-5 text-blue-500" />
+                    <span className="font-medium text-white">IA para Devs</span>
                   </div>
-                  <div className={`bg-gradient-to-br from-blue-900/40 to-blue-800/40 rounded-2xl p-6 shadow-xl border border-blue-700/30 backdrop-blur-sm ${index % 2 === 0 ? 'mr-8' : 'ml-8'}`}>
-                    <h4 className="text-xl font-bold text-white mb-2">Fase {step}</h4>
-                    <p className="text-blue-300">
-                      {step === 1 && "Fundamentos e conceitos básicos de IA"}
-                      {step === 2 && "Implementação prática e projetos"}
-                      {step === 3 && "Avançado e especialização"}
-                    </p>
-                  </div>
+                  
+                  {/* Module Navigation */}
+                  <nav className="space-y-2">
+                    {modules.map((module) => (
+                      <button
+                        key={module.id}
+                        onClick={() => setSelectedModule(module)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                          selectedModule.id === module.id
+                            ? 'bg-blue-600 text-white'
+                            : 'text-gray-400 hover:bg-gray-800'
+                        }`}
+                      >
+                        <module.icon className="w-5 h-5" />
+                        <span className="font-medium">{module.title}</span>
+                      </button>
+                    ))}
+                  </nav>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+
+              {/* Content Area */}
+              <div className="p-8">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {selectedModule.title}
+                  </h3>
+                  <p className="text-gray-400">
+                    {selectedModule.description}
+                  </p>
+                </div>
+
+                {/* Content List */}
+                <div className="space-y-4">
+                  {selectedModule.content.map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: index * 0.1 }}
+                      className="flex items-center gap-3 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
+                        <Play className="w-4 h-4" />
+                      </div>
+                      <span className="text-white">{item}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,112 +1,254 @@
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Bot, MessageSquare, Brain, Zap, MousePointer, Map, BarChart3, Drama as Llama, Users, Phone as Python } from 'lucide-react';
+import { Bot, MessageSquare, Brain, Zap, LucideIcon, MousePointer, BarChart3, Users } from 'lucide-react';
 
-const topics = [
+interface Detail {
+  title: string;
+  description: string;
+}
+
+interface Topic {
+  name: string;
+  icon: LucideIcon;
+  description: string;
+  tag: string;
+  details: Detail[];
+}
+
+interface TopicCardProps {
+  topic: Topic;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const topics: Topic[] = [
   {
     name: "Github Copilot",
     icon: Bot,
     description: "Aumente sua produtividade com o poder da IA no seu código",
-    color: "from-emerald-500 to-emerald-600"
+    tag: "Produtividade",
+    details: [
+      { title: "Autocomplete Inteligente", description: "Sugestões de código contextual em tempo real" },
+      { title: "Pair Programming", description: "Trabalhe junto com IA para resolver problemas" },
+      { title: "Documentação Automática", description: "Gere documentação clara e precisa" }
+    ]
   },
   {
     name: "ChatGPT",
     icon: MessageSquare,
     description: "Aprenda a utilizar o ChatGPT para resolver problemas complexos",
-    color: "from-blue-500 to-blue-600"
+    tag: "IA Conversacional",
+    details: [
+      { title: "Prompts Avançados", description: "Técnicas de engenharia de prompts" },
+      { title: "Resolução de Problemas", description: "Abordagem sistemática com IA" },
+      { title: "Geração de Conteúdo", description: "Criação de textos e análises" }
+    ]
   },
   {
     name: "Claude",
     icon: Brain,
     description: "Domine o Claude para análise avançada e geração de conteúdo",
-    color: "from-purple-500 to-purple-600"
+    tag: "Análise",
+    details: [
+      { title: "Análise de Dados", description: "Processamento e insights de dados" },
+      { title: "Escrita Técnica", description: "Documentação e relatórios técnicos" },
+      { title: "Revisão de Código", description: "Análise e melhorias de código" }
+    ]
   },
   {
     name: "BOLT",
     icon: Zap,
     description: "Acelere seu desenvolvimento com automação inteligente",
-    color: "from-yellow-500 to-yellow-600"
+    tag: "Automação",
+    details: [
+      { title: "Fluxos de Trabalho", description: "Automação de processos repetitivos" },
+      { title: "Integração Contínua", description: "Desenvolvimento mais rápido e eficiente" },
+      { title: "Otimização de Código", description: "Melhorias automáticas de performance" }
+    ]
   },
   {
     name: "Cursor",
     icon: MousePointer,
     description: "Otimize seu fluxo de trabalho com IA integrada",
-    color: "from-red-500 to-red-600"
+    tag: "Produtividade",
+    details: [
+      { title: "Editor Inteligente", description: "Interface otimizada para desenvolvimento com IA" },
+      { title: "Sugestões Contextuais", description: "Recomendações baseadas no seu código" },
+      { title: "Integração com LLMs", description: "Acesso direto a modelos de linguagem" }
+    ]
   },
   {
     name: "Mapify",
-    icon: Map,
+    icon: Users,
     description: "Visualize e planeje projetos com auxílio da IA",
-    color: "from-green-500 to-green-600"
+    tag: "Planejamento",
+    details: [
+      { title: "Mapeamento Visual", description: "Criação de mapas mentais inteligentes" },
+      { title: "Organização de Projetos", description: "Estruturação automática de ideias" },
+      { title: "Planejamento Estratégico", description: "Sugestões de fluxos de trabalho" }
+    ]
   },
   {
     name: "Gamma App",
     icon: BarChart3,
     description: "Crie apresentações profissionais automaticamente",
-    color: "from-indigo-500 to-indigo-600"
+    tag: "Apresentações",
+    details: [
+      { title: "Design Automático", description: "Layouts profissionais gerados por IA" },
+      { title: "Conteúdo Dinâmico", description: "Geração inteligente de conteúdo" },
+      { title: "Personalização Avançada", description: "Adaptação ao seu estilo e marca" }
+    ]
   },
   {
     name: "Ollama",
-    icon: Llama,
+    icon: Users,
     description: "Execute modelos de IA localmente em seu ambiente",
-    color: "from-pink-500 to-pink-600"
+    tag: "LLMs",
+    details: [
+      { title: "Modelos Locais", description: "Execute LLMs em sua máquina" },
+      { title: "Personalização", description: "Ajuste os modelos às suas necessidades" },
+      { title: "Privacidade", description: "Controle total sobre seus dados" }
+    ]
   },
   {
     name: "Linkedin Com IA",
     icon: Users,
     description: "Otimize seu perfil profissional com IA",
-    color: "from-cyan-500 to-cyan-600"
+    tag: "Marketing",
+    details: [
+      { title: "Otimização de Perfil", description: "Melhore sua visibilidade profissional" },
+      { title: "Networking Inteligente", description: "Conexões estratégicas sugeridas" },
+      { title: "Conteúdo Engajante", description: "Posts e artigos otimizados" }
+    ]
   },
   {
     name: "Python Com IA",
-    icon: Python,
+    icon: Users,
     description: "Desenvolva aplicações inteligentes com Python",
-    color: "from-orange-500 to-orange-600"
+    tag: "Desenvolvimento",
+    details: [
+      { title: "Integração com APIs", description: "Conexão com serviços de IA" },
+      { title: "Machine Learning", description: "Desenvolvimento de modelos" },
+      { title: "Automação Inteligente", description: "Scripts e processos otimizados" }
+    ]
   }
 ];
 
-const Topics = () => {
-  return (
-    <section id="conteudo" className="py-20 relative">
-      {/* Background with subtle pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/50 to-black/50 -z-10" />
-      <div className="absolute inset-0 opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CjxyZWN0IHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgZmlsbD0iI2ZmZiI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iNDIuNDIiIGhlaWdodD0iNDIuNDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLDMwKSByb3RhdGUoNDUpIiBmaWxsPSIjMDAwIj48L3JlY3Q+Cjwvc3ZnPg==')] bg-repeat -z-20" />
+const TopicCard: React.FC<TopicCardProps> = ({ topic, isActive, onClick }) => (
+  <motion.button
+    onClick={onClick}
+    className={`w-full text-left p-6 rounded-2xl border transition-all duration-200 ${
+      isActive 
+        ? 'bg-blue-600 border-blue-500 shadow-lg' 
+        : 'bg-white border-gray-200 hover:shadow-lg'
+    }`}
+  >
+    <div className="flex items-start gap-4">
+      <div className={`p-3 rounded-xl ${
+        isActive ? 'bg-blue-500/50 text-white' : 'bg-blue-50 text-blue-600'
+      }`}>
+        <topic.icon className="w-5 h-5" />
+      </div>
+      
+      <div>
+        {topic.tag && (
+          <span className={`inline-block text-xs font-medium px-2 py-1 rounded-full ${
+            isActive ? 'bg-blue-500/50 text-white' : 'bg-blue-50 text-blue-600'
+          } mb-2`}>
+            {topic.tag}
+          </span>
+        )}
+        
+        <h3 className={`text-lg font-semibold mb-2 ${
+          isActive ? 'text-white' : 'text-gray-900'
+        }`}>
+          {topic.name}
+        </h3>
+        
+        <p className={isActive ? 'text-blue-100' : 'text-gray-600'}>
+          {topic.description}
+        </p>
+      </div>
+    </div>
+  </motion.button>
+);
 
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-200 to-blue-400 text-transparent bg-clip-text">
+const Topics: React.FC = () => {
+  const [activeTopic, setActiveTopic] = useState<number>(0);
+
+  return (
+    <section className="py-24 bg-white relative">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      </div>
+
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-20">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
             O que você vai aprender
           </h2>
-          <p className="text-blue-300 text-lg max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Domine as ferramentas mais poderosas de IA e transforme sua maneira de programar
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {topics.map((topic, index) => (
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr,400px] gap-12">
+          <div className="space-y-6">
+            {topics.map((topic, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <TopicCard
+                  topic={topic}
+                  isActive={activeTopic === index}
+                  onClick={() => setActiveTopic(index)}
+                />
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="lg:sticky lg:top-8 self-start">
             <motion.div
-              key={index}
+              key={activeTopic}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="bg-gradient-to-br from-blue-900/40 to-blue-800/40 rounded-2xl p-8 shadow-xl border border-blue-700/30 backdrop-blur-sm"
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
             >
-              <div className={`bg-gradient-to-br ${topic.color} p-4 rounded-xl inline-block mb-6`}>
-                <topic.icon className="w-8 h-8 text-white" />
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-blue-50 rounded-lg">
+                    {React.createElement(topics[activeTopic].icon, {
+                      className: "w-5 h-5 text-blue-600"
+                    })}
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {topics[activeTopic].name}
+                  </h3>
+                </div>
+
+                <div className="space-y-6">
+                  {topics[activeTopic].details.map((detail, index) => (
+                    <div key={index} className="flex items-start gap-4">
+                      <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center">
+                        {React.createElement(topics[activeTopic].icon, {
+                          className: "w-4 h-4 text-blue-600"
+                        })}
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900">{detail.title}</div>
+                        <div className="text-sm text-gray-600">{detail.description}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">{topic.name}</h3>
-              <p className="text-blue-300">
-                {topic.description}
-              </p>
             </motion.div>
-          ))}
+          </div>
         </div>
       </div>
     </section>

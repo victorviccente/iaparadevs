@@ -1,103 +1,122 @@
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, TrendingUp, Lightbulb, Award, Users, Rocket } from 'lucide-react';
+import { BookOpen, Code, Brain } from 'lucide-react';
 
-const benefits = [
+const features = [
   {
-    title: "Aumente sua produtividade como desenvolvedor",
-    description: "Automatize tarefas repetitivas e foque no que realmente importa",
-    icon: TrendingUp,
-    color: "from-green-400 to-green-600"
+    icon: Brain,
+    title: "Fundamentos de IA",
+    description: "Aprenda os conceitos fundamentais da Inteligência Artificial de forma prática e objetiva.",
+    content: [
+      { title: "Machine Learning", description: "Fundamentos e aplicações" },
+      { title: "Deep Learning", description: "Redes neurais profundas" },
+      { title: "NLP", description: "Processamento de linguagem natural" }
+    ]
   },
   {
-    title: "Crie soluções inovadoras com IA",
-    description: "Desenvolva aplicações inteligentes que se destacam no mercado",
-    icon: Lightbulb,
-    color: "from-yellow-400 to-yellow-600"
+    icon: Code,
+    title: "Github Copilot",
+    description: "Aumente sua produtividade com o poder da IA direto no seu editor de código.",
+    content: [
+      { title: "Autocomplete", description: "Sugestões inteligentes de código" },
+      { title: "Refatoração", description: "Melhoria automática de código" },
+      { title: "Documentação", description: "Geração de documentação" }
+    ]
   },
   {
-    title: "Destaque-se no mercado de trabalho",
-    description: "Domine habilidades altamente valorizadas e em crescente demanda",
-    icon: Award,
-    color: "from-purple-400 to-purple-600"
-  },
-  {
-    title: "Aprenda com projetos práticos e reais",
-    description: "Aplique seus conhecimentos em casos do mundo real",
-    icon: Rocket,
-    color: "from-red-400 to-red-600"
-  },
-  {
-    title: "Networking com outros profissionais da área",
-    description: "Conecte-se com uma comunidade ativa de desenvolvedores",
-    icon: Users,
-    color: "from-blue-400 to-blue-600"
+    icon: BookOpen,
+    title: "Projetos Práticos",
+    description: "Aprenda com projetos reais e aplique seu conhecimento na prática.",
+    content: [
+      { title: "Sistema de Recomendação", description: "Machine Learning aplicado" },
+      { title: "Chatbot", description: "Processamento de linguagem natural" },
+      { title: "Análise de Sentimentos", description: "Classificação de texto" }
+    ]
   }
 ];
 
 const Benefits = () => {
+  const [activeFeature, setActiveFeature] = useState(0);
+
   return (
-    <section id="beneficios" className="py-20 relative">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/50 to-black/50 -z-10" />
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a')] opacity-5 mix-blend-overlay bg-cover bg-fixed -z-20" />
+    <section className="py-24 bg-white relative">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      </div>
 
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-200 to-blue-400 text-transparent bg-clip-text">
-            Por que escolher este curso?
+      <div className="container mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Aprenda IA de forma prática
           </h2>
-          <p className="text-blue-300 text-lg max-w-2xl mx-auto">
-            Descubra como nossa metodologia única vai transformar sua carreira
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Desenvolva habilidades práticas em IA com projetos reais e ferramentas modernas
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {benefits.map((benefit, index) => (
-            <motion.div
+        {/* Features Grid */}
+        <div className="grid lg:grid-cols-3 gap-8 items-start max-w-7xl mx-auto mb-16">
+          {features.map((feature, index) => (
+            <motion.button
               key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className="bg-gradient-to-br from-blue-900/40 to-blue-800/40 rounded-2xl p-8 shadow-xl border border-blue-700/30 backdrop-blur-sm"
+              onClick={() => setActiveFeature(index)}
+              className={`text-left p-8 rounded-2xl transition-all duration-200 ${
+                activeFeature === index
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'hover:bg-gray-50'
+              }`}
             >
-              <div className="flex items-start gap-6">
-                <div className={`bg-gradient-to-br ${benefit.color} p-3 rounded-xl`}>
-                  <benefit.icon className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-3 text-white">{benefit.title}</h3>
-                  <p className="text-blue-300 text-lg">
-                    {benefit.description}
-                  </p>
-                </div>
+              <div className={`p-3 rounded-xl w-fit mb-4 ${
+                activeFeature === index
+                  ? 'bg-blue-500/50 text-white'
+                  : 'bg-blue-50 text-blue-600'
+              }`}>
+                <feature.icon className="w-6 h-6" />
               </div>
-            </motion.div>
+              <h3 className={`text-xl font-semibold mb-2 ${
+                activeFeature === index ? 'text-white' : 'text-gray-900'
+              }`}>
+                {feature.title}
+              </h3>
+              <p className={`${
+                activeFeature === index ? 'text-blue-100' : 'text-gray-700'
+              }`}>
+                {feature.description}
+              </p>
+            </motion.button>
           ))}
         </div>
 
-        {/* Call to Action */}
+        {/* Content Preview */}
         <motion.div
+          key={activeFeature}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mt-16 text-center"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-lg transition duration-300 shadow-lg"
-          >
-            Comece Sua Jornada Agora
-          </motion.button>
+          <div className="p-6">
+            <div className="grid gap-6">
+              {features[activeFeature].content.map((item, index) => (
+                <div key={index} className="flex items-center gap-4">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                    {React.createElement(features[activeFeature].icon, {
+                      className: "w-4 h-4 text-blue-600"
+                    })}
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-900">{item.title}</div>
+                    <div className="text-sm text-gray-600">{item.description}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
