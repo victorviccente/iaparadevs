@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Code, Terminal, Cpu, ArrowRight, Github, Linkedin } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
+import vv from '../assets/vvpodcast.png'
+
 interface Achievement {
   icon: LucideIcon;
   title: string;
@@ -12,7 +14,7 @@ interface Achievement {
 const achievements: Achievement[] = [
   { 
     icon: Code,
-    title: "Especialista em IA",
+    title: "Instrutor em IA",
     description: "Desenvolvimento avançado com Python e frameworks de IA"
   },
   { 
@@ -23,7 +25,7 @@ const achievements: Achievement[] = [
   { 
     icon: Cpu,
     title: "Machine Learning",
-    description: "Especialista em modelos de aprendizado de máquina"
+    description: "Profissional em modelos de aprendizado de máquina"
   }
 ];
 
@@ -53,7 +55,6 @@ const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, index })
 const Instructor = () => {
   return (
     <section id="instructor" className="py-24 bg-white">
-      {/* Subtle grid background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
@@ -76,7 +77,6 @@ const Instructor = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-start max-w-6xl mx-auto">
-          {/* Left Column - Image and Achievements */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -86,16 +86,14 @@ const Instructor = () => {
             <div className="relative mb-12">
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop"
+                  src={vv}
                   alt="Professor Victor Vicente"
                   className="w-full aspect-square object-cover rounded-2xl"
                 />
-                {/* Subtle border overlay */}
                 <div className="absolute inset-0 rounded-2xl border border-gray-200" />
               </div>
             </div>
 
-            {/* Achievement Cards */}
             <div className="space-y-4">
               {achievements.map((achievement, index) => (
                 <AchievementCard
@@ -107,7 +105,6 @@ const Instructor = () => {
             </div>
           </motion.div>
 
-          {/* Right Column - Bio and Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -121,40 +118,38 @@ const Instructor = () => {
                   Prof. Victor Vicente
                 </h3>
                 <p className="text-lg text-blue-600 font-medium">
-                  Especialista em Inteligência Artificial & Machine Learning
+                  Profissional em Inteligência Artificial & Machine Learning
                 </p>
               </div>
               
               <div className="space-y-4 text-gray-600">
                 <p>
                   Pós-graduando em Inteligência Artificial com ênfase em Machine Learning,
-                  especialista em IA e Python, e referência no desenvolvimento de soluções
+                  desenvolvedor em IA e Python, e referência no desenvolvimento de soluções
                   inovadoras com tecnologias emergentes de IA.
                 </p>
                 <p>
-                  Desenvolvedor especializado na criação de SaaS (Software as a Service) e aplicações web
+                  Desenvolvedor focado na criação de SaaS (Software as a Service) e aplicações web
                   utilizando Inteligência Artificial. Atuo no desenvolvimento de soluções inovadoras
                   que combinam IA com as melhores práticas de programação moderna.
                 </p>
               </div>
 
-              {/* Stats Grid */}
               <div className="grid grid-cols-3 gap-8 py-8 border-y border-gray-100">
                 <div>
-                  <div className="text-3xl font-bold text-gray-900">7+</div>
+                  <div className="text-3xl font-bold text-gray-900">4+</div>
                   <div className="text-sm text-gray-600 mt-1">Anos de experiência</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-gray-900">50+</div>
+                  <div className="text-3xl font-bold text-gray-900">20+</div>
                   <div className="text-sm text-gray-600 mt-1">Projetos entregues</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-gray-900">1.5k+</div>
+                  <div className="text-3xl font-bold text-gray-900">600+</div>
                   <div className="text-sm text-gray-600 mt-1">Alunos formados</div>
                 </div>
               </div>
 
-              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <button className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
                   Ver currículo completo
@@ -162,12 +157,22 @@ const Instructor = () => {
                 </button>
                 
                 <div className="flex gap-4">
-                  <button className="inline-flex items-center justify-center w-12 h-12 rounded-lg border border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors">
+                  <a 
+                    href="https://github.com/victorviccente" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center w-12 h-12 rounded-lg border border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors"
+                  >
                     <Github className="w-5 h-5" />
-                  </button>
-                  <button className="inline-flex items-center justify-center w-12 h-12 rounded-lg border border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors">
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/victorviccente"
+                    target="_blank"
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center justify-center w-12 h-12 rounded-lg border border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-600 transition-colors"
+                  >
                     <Linkedin className="w-5 h-5" />
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

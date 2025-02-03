@@ -13,7 +13,7 @@ const features = [
 
 const Pricing = () => {
   return (
-    <section className="py-24 relative bg-[#0A0F1D]">
+    <section id='preco' className="py-24 relative bg-[#0A0F1D]">
       {/* Grid pattern overlay */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a223f_1px,transparent_1px),linear-gradient(to_bottom,#1a223f_1px,transparent_1px)] bg-[size:4rem_4rem]" />

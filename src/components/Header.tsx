@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Menu, X, Play } from 'lucide-react';
+import { Terminal, Menu, X, Play, ChevronDown } from 'lucide-react';
 
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
   onClick?: () => void;
 }
+
+const NavLink: React.FC<NavLinkProps> = ({ href, children, onClick }) => (
+  <a
+    href={href}
+    onClick={onClick}
+    className="block text-sm text-gray-200 hover:text-[#C2F52B] transition-colors"
+  >
+    {children}
+  </a>
+);
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,37 +30,54 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToNextSection = () => {
+    const viewportHeight = window.innerHeight;
+    window.scrollTo({ top: viewportHeight, behavior: 'smooth' });
+  };
+
   return (
-    <header className="relative min-h-screen flex flex-col bg-white">
-      {/* Navigation */}
+    <header className="relative min-h-screen flex flex-col">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-black/50 z-10" />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source 
+            src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-futuristic-elements-12810-large.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+      </div>
+
       <nav className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-sm' : 'bg-white'
+        isScrolled ? 'bg-black/80 backdrop-blur-sm shadow-sm' : 'bg-transparent'
       }`}>
         <div className="container mx-auto px-6">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
             <div className="flex items-center gap-2">
-              <Terminal className="w-6 h-6 text-blue-600" />
-              <span className="text-xl font-semibold text-gray-900">
-                IA PARA DEVS
+              <Terminal className="w-6 h-6 text-[#C2F52B]" />
+              <span className="text-xl font-semibold text-white">
+                <a href="#">IA PARA DEVS</a>
               </span>
             </div>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <NavLink href="#beneficios">Benefícios</NavLink>
               <NavLink href="#conteudo">Conteúdo</NavLink>
               <NavLink href="#tecnologias">Tecnologias</NavLink>
               <NavLink href="#depoimentos">Depoimentos</NavLink>
-              <button className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors">
-                Começar agora
+              <button className="inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-[#C2F52B] text-black hover:bg-[#9CC621] transition-colors">
+                <a href="#preco">Começar agora</a>
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-gray-700"
+              className="md:hidden text-white"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -61,9 +88,8 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 bg-white">
+          <div className="md:hidden border-t border-white/10 bg-black/90 backdrop-blur-sm">
             <div className="container mx-auto px-6 py-4 space-y-4">
               <NavLink href="#beneficios" onClick={() => setIsMobileMenuOpen(false)}>
                 Benefícios
@@ -77,7 +103,7 @@ const Header = () => {
               <NavLink href="#depoimentos" onClick={() => setIsMobileMenuOpen(false)}>
                 Depoimentos
               </NavLink>
-              <button className="w-full px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+              <button className="w-full px-4 py-2 rounded-lg text-sm font-medium bg-[#C2F52B] text-black hover:bg-[#9CC621] transition-colors">
                 Começar agora
               </button>
             </div>
@@ -85,19 +111,17 @@ const Header = () => {
         )}
       </nav>
 
-      {/* Hero Section */}
       <div className="flex-1 flex items-center">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center space-y-8">
-              {/* Main Headline */}
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight"
+                className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight"
               >
                 Desenvolva com
-                <span className="text-blue-600"> IA</span>
+                <span className="text-[#C2F52B]"> IA</span>
                 <br />
                 de forma inteligente
               </motion.h1>
@@ -106,71 +130,49 @@ const Header = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-xl text-gray-600 max-w-2xl mx-auto"
+                className="text-xl text-gray-300 max-w-2xl mx-auto"
               >
                 Aprenda a construir agentes autônomos, automatizar seu desenvolvimento
                 e criar soluções inovadoras com Inteligência Artificial.
               </motion.p>
 
-              {/* CTA Section */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               >
-                <button className="w-full sm:w-auto px-8 py-4 rounded-lg font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors">
-                  Começar Jornada
+                <button className="w-full sm:w-auto px-8 py-4 rounded-lg font-medium bg-[#C2F52B] text-black hover:bg-[#9CC621] transition-colors">
+                  <a href="#preco">Começar Jornada</a>
                 </button>
                 
-                <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-white hover:bg-white/10 transition-colors">
                   Ver demonstração
                   <Play className="w-4 h-4" />
                 </button>
-              </motion.div>
-
-              {/* Social Proof */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="pt-12 grid grid-cols-2 md:grid-cols-3 gap-8 text-center"
-              >
-                <div>
-                  <div className="text-4xl font-bold text-gray-900">1000+</div>
-                  <div className="text-sm text-gray-600 mt-1">Alunos ativos</div>
-                </div>
-                <div>
-                  <div className="text-4xl font-bold text-gray-900">4.9/5</div>
-                  <div className="text-sm text-gray-600 mt-1">Avaliação média</div>
-                </div>
-                <div className="col-span-2 md:col-span-1">
-                  <div className="text-4xl font-bold text-gray-900">100%</div>
-                  <div className="text-sm text-gray-600 mt-1">Online</div>
-                </div>
               </motion.div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Background Pattern */}
-      <div className="absolute inset-0 -z-10 h-full w-full bg-white">
-        <div className="absolute h-full w-full bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
-      </div>
+      <motion.button
+        onClick={scrollToNextSection}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="text-[#C2F52B] hover:text-[#9CC621] transition-colors"
+        >
+          <ChevronDown className="w-8 h-8" />
+        </motion.div>
+      </motion.button>
     </header>
   );
 };
-
-// NavLink component
-const NavLink: React.FC<NavLinkProps> = ({ href, children, onClick }) => (
-  <a
-    href={href}
-    onClick={onClick}
-    className="block text-sm text-gray-600 hover:text-gray-900 transition-colors"
-  >
-    {children}
-  </a>
-);
 
 export default Header;

@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Book, Code, Brain, Bot, Rocket, Terminal, Linkedin, Map, Play } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Book, Code, Brain, Bot, Rocket, Terminal, Linkedin, Map, Play, ChevronDown } from 'lucide-react';
 
-const modules = [
+interface Module {
+  id: string;
+  title: string;
+  icon: React.ElementType;
+  description: string;
+  content: string[];
+}
+
+interface ModuleCardProps {
+  module: Module;
+  isSelected: boolean;
+  onClick: () => void;
+  isMobile: boolean;
+}
+
+const modules: Module[] = [
   {
     id: 'mod1',
     title: 'Introdução ao Curso',
@@ -125,18 +140,97 @@ const modules = [
   }
 ];
 
-const CourseStructure = () => {
+const ModuleCard: React.FC<ModuleCardProps> = ({ module, isSelected, onClick, isMobile }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    if (isMobile) {
+      setIsOpen(!isOpen);
+    } else {
+      onClick();
+    }
+  };
+
+  return (
+    <div id='conteudo' className="w-full">
+      <button
+        onClick={handleClick}
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+          isSelected && !isMobile
+            ? 'bg-blue-600 text-white'
+            : 'text-gray-400 hover:bg-gray-800'
+        }`}
+      >
+        <div className="flex items-center gap-3 flex-1">
+          <module.icon className="w-5 h-5" />
+          <span className="font-medium">{module.title}</span>
+        </div>
+        {isMobile && (
+          <ChevronDown className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        )}
+      </button>
+
+      <AnimatePresence>
+        {(isMobile && isOpen) && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden bg-gray-800/30 rounded-lg mt-2"
+          >
+            <div className="p-4 space-y-4">
+              <div className="mb-4">
+                <h3 className="text-lg font-medium text-white mb-1">
+                  {module.title}
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  {module.description}
+                </p>
+              </div>
+              {module.content.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2, delay: index * 0.05 }}
+                  className="flex items-center gap-3 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
+                    <Play className="w-4 h-4" />
+                  </div>
+                  <span className="text-white">{item}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const CourseStructure: React.FC = () => {
   const [selectedModule, setSelectedModule] = useState(modules[0]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section className="py-24 bg-[#0A0F1D] relative">
-      {/* Grid pattern overlay */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a223f_1px,transparent_1px),linear-gradient(to_bottom,#1a223f_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       </div>
 
       <div className="container mx-auto px-6 relative">
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-white mb-4">
             Estrutura do Curso
@@ -146,67 +240,69 @@ const CourseStructure = () => {
           </p>
         </div>
 
-        {/* Course Interface */}
         <div className="max-w-6xl mx-auto">
           <div className="bg-[#0F1729] rounded-2xl shadow-xl overflow-hidden border border-gray-800">
-            <div className="grid md:grid-cols-[280px,1fr]">
-              {/* Sidebar */}
-              <div className="border-r border-gray-800">
+            <div className={`${!isMobile ? 'grid md:grid-cols-[280px,1fr]' : ''}`}>
+              <div className={`${!isMobile ? 'border-r border-gray-800' : ''}`}>
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-6">
                     <Terminal className="w-5 h-5 text-blue-500" />
                     <span className="font-medium text-white">IA para Devs</span>
                   </div>
                   
-                  {/* Module Navigation */}
                   <nav className="space-y-2">
                     {modules.map((module) => (
-                      <button
+                      <ModuleCard
                         key={module.id}
+                        module={module}
+                        isSelected={selectedModule.id === module.id}
                         onClick={() => setSelectedModule(module)}
-                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
-                          selectedModule.id === module.id
-                            ? 'bg-blue-600 text-white'
-                            : 'text-gray-400 hover:bg-gray-800'
-                        }`}
-                      >
-                        <module.icon className="w-5 h-5" />
-                        <span className="font-medium">{module.title}</span>
-                      </button>
+                        isMobile={isMobile}
+                      />
                     ))}
                   </nav>
                 </div>
               </div>
 
-              {/* Content Area */}
-              <div className="p-8">
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    {selectedModule.title}
-                  </h3>
-                  <p className="text-gray-400">
-                    {selectedModule.description}
-                  </p>
-                </div>
-
-                {/* Content List */}
-                <div className="space-y-4">
-                  {selectedModule.content.map((item, index) => (
+              {!isMobile && (
+                <div className="p-8">
+                  <AnimatePresence mode="wait">
                     <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 10 }}
+                      key={selectedModule.id}
+                      initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2, delay: index * 0.1 }}
-                      className="flex items-center gap-3 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors"
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
-                        <Play className="w-4 h-4" />
+                      <div className="mb-8">
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                          {selectedModule.title}
+                        </h3>
+                        <p className="text-gray-400">
+                          {selectedModule.description}
+                        </p>
                       </div>
-                      <span className="text-white">{item}</span>
+
+                      <div className="space-y-4">
+                        {selectedModule.content.map((item, index) => (
+                          <motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.2, delay: index * 0.05 }}
+                            className="flex items-center gap-3 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
+                              <Play className="w-4 h-4" />
+                            </div>
+                            <span className="text-white">{item}</span>
+                          </motion.div>
+                        ))}
+                      </div>
                     </motion.div>
-                  ))}
+                  </AnimatePresence>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
