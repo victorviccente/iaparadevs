@@ -34,14 +34,20 @@ const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 bg-white relative">
-      {/* Subtle grid background */}
+    <section className="relative py-24">
+      {/* Background gradiente */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1a237e] via-[#283593] to-[#1a237e] opacity-90" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(circle at center, rgba(26,35,126,0.5) 0%, rgba(26,35,126,0.8) 50%, rgb(26,35,126) 100%)',
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-6">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,15 +55,14 @@ const FAQ = () => {
           transition={{ duration: 0.5 }}
           className="max-w-2xl mx-auto text-center mb-20"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4">
             Perguntas Frequentes
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-300">
             Tire suas dúvidas sobre o curso e comece sua jornada
           </p>
         </motion.div>
 
-        {/* FAQ Items */}
         <div className="max-w-3xl mx-auto">
           {faqs.map((faq, index) => (
             <motion.div
@@ -73,16 +78,16 @@ const FAQ = () => {
                 className="flex w-full items-start justify-between gap-4 py-6 text-left"
               >
                 <div>
-                  <span className="block text-sm font-medium text-blue-600 mb-1">
+                  <span className="block text-sm font-medium text-[#C2F52B] mb-1">
                     {faq.category}
                   </span>
-                  <span className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <span className="text-lg font-medium text-white group-hover:text-[#C2F52B] transition-colors">
                     {faq.question}
                   </span>
                 </div>
                 <div className="flex-none pt-1">
                   <ChevronDown 
-                    className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
+                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
@@ -98,20 +103,17 @@ const FAQ = () => {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <p className="pb-6 text-gray-600">
+                    <p className="pb-6 text-gray-300">
                       {faq.answer}
                     </p>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* Divider */}
-              <div className="border-t border-gray-200" />
+              <div className="border-t border-white/10" />
             </motion.div>
           ))}
         </div>
-
-    
       </div>
     </section>
   );

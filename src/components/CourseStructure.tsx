@@ -157,12 +157,12 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module, isSelected, onClick, is
         onClick={handleClick}
         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
           isSelected && !isMobile
-            ? 'bg-blue-600 text-white'
-            : 'text-gray-400 hover:bg-gray-800'
+            ? 'bg-[#C2F52B] text-black'
+            : 'text-gray-300 hover:bg-black/40'
         }`}
       >
         <div className="flex items-center gap-3 flex-1">
-          <module.icon className="w-5 h-5" />
+          <module.icon className={`w-5 h-5 ${isSelected && !isMobile ? 'text-black' : 'text-[#C2F52B]'}`} />
           <span className="font-medium">{module.title}</span>
         </div>
         {isMobile && (
@@ -177,14 +177,14 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module, isSelected, onClick, is
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden bg-gray-800/30 rounded-lg mt-2"
+            className="overflow-hidden bg-black/40 rounded-lg mt-2"
           >
             <div className="p-4 space-y-4">
               <div className="mb-4">
                 <h3 className="text-lg font-medium text-white mb-1">
                   {module.title}
                 </h3>
-                <p className="text-gray-400 text-sm">
+                <p className="text-gray-300 text-sm">
                   {module.description}
                 </p>
               </div>
@@ -194,12 +194,12 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module, isSelected, onClick, is
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.2, delay: index * 0.05 }}
-                  className="flex items-center gap-3 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors"
+                  className="flex items-center gap-3 p-4 rounded-lg bg-black/60 hover:bg-black/80 transition-colors"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
+                  <div className="w-8 h-8 rounded-lg bg-black/40 flex items-center justify-center text-[#C2F52B]">
                     <Play className="w-4 h-4" />
                   </div>
-                  <span className="text-white">{item}</span>
+                  <span className="text-gray-300">{item}</span>
                 </motion.div>
               ))}
             </div>
@@ -225,9 +225,9 @@ const CourseStructure: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-24 bg-[#0A0F1D] relative">
+    <section className="py-24 bg-black relative">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a223f_1px,transparent_1px),linear-gradient(to_bottom,#1a223f_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       </div>
 
       <div className="container mx-auto px-6 relative">
@@ -235,18 +235,18 @@ const CourseStructure: React.FC = () => {
           <h2 className="text-3xl font-bold text-white mb-4">
             Estrutura do Curso
           </h2>
-          <p className="text-lg text-gray-400">
+          <p className="text-lg text-gray-300">
             Conteúdo completo e atualizado
           </p>
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <div className="bg-[#0F1729] rounded-2xl shadow-xl overflow-hidden border border-gray-800">
+          <div className="bg-black/80 rounded-2xl shadow-xl overflow-hidden border border-white/10">
             <div className={`${!isMobile ? 'grid md:grid-cols-[280px,1fr]' : ''}`}>
-              <div className={`${!isMobile ? 'border-r border-gray-800' : ''}`}>
+              <div className={`${!isMobile ? 'border-r border-white/10' : ''}`}>
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-6">
-                    <Terminal className="w-5 h-5 text-blue-500" />
+                    <Terminal className="w-5 h-5 text-[#C2F52B]" />
                     <span className="font-medium text-white">IA para Devs</span>
                   </div>
                   
@@ -278,7 +278,7 @@ const CourseStructure: React.FC = () => {
                         <h3 className="text-2xl font-bold text-white mb-2">
                           {selectedModule.title}
                         </h3>
-                        <p className="text-gray-400">
+                        <p className="text-gray-300">
                           {selectedModule.description}
                         </p>
                       </div>
@@ -290,12 +290,12 @@ const CourseStructure: React.FC = () => {
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.2, delay: index * 0.05 }}
-                            className="flex items-center gap-3 p-4 rounded-lg bg-gray-800/50 hover:bg-gray-800 transition-colors"
+                            className="flex items-center gap-3 p-4 rounded-lg bg-black/40 hover:bg-black/60 transition-colors"
                           >
-                            <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500">
+                            <div className="w-8 h-8 rounded-lg bg-black/40 flex items-center justify-center text-[#C2F52B]">
                               <Play className="w-4 h-4" />
                             </div>
-                            <span className="text-white">{item}</span>
+                            <span className="text-gray-300">{item}</span>
                           </motion.div>
                         ))}
                       </div>

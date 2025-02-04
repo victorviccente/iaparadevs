@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './components/Header';
 import Instructor from './components/Instructor';
 import Topics from './components/Topics';
 import Benefits from './components/Benefits';
@@ -8,6 +7,8 @@ import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
 
 const App: React.FC = () => {
   return (
@@ -20,7 +21,8 @@ const App: React.FC = () => {
       </div>
 
       <div className="relative text-white font-sans">
-        <Header />
+        <Navbar />
+        <Hero />
         <Instructor />
         <Topics />
         <Benefits />

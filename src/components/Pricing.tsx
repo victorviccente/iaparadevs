@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
@@ -13,10 +12,9 @@ const features = [
 
 const Pricing = () => {
   return (
-    <section id='preco' className="py-24 relative bg-[#0A0F1D]">
-      {/* Grid pattern overlay */}
+    <section id='preco' className="py-24 relative bg-black">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a223f_1px,transparent_1px),linear-gradient(to_bottom,#1a223f_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       </div>
 
       <div className="container mx-auto px-6 relative">
@@ -24,7 +22,7 @@ const Pricing = () => {
           <h2 className="text-3xl font-bold text-white mb-4">
             Comece sua jornada em IA
           </h2>
-          <p className="text-lg text-gray-400">
+          <p className="text-lg text-gray-300">
             Transforme sua carreira com as habilidades mais demandadas do mercado
           </p>
         </div>
@@ -36,10 +34,10 @@ const Pricing = () => {
           transition={{ duration: 0.5 }}
           className="max-w-lg mx-auto"
         >
-          <div className="relative rounded-2xl bg-[#0F1729] p-8">
+          <div className="relative rounded-2xl bg-black/80 border border-white/10 p-8">
             {/* Promotion badge */}
             <div className="absolute top-6 right-6">
-              <div className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-full">
+              <div className="px-3 py-1 text-sm font-medium text-black bg-[#C2F52B] rounded-full">
                 50% OFF
               </div>
             </div>
@@ -61,14 +59,14 @@ const Pricing = () => {
             <div className="space-y-4 mb-8">
               {features.map((feature, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                  <Check className="w-5 h-5 text-[#C2F52B] flex-shrink-0" />
                   <span className="text-gray-300">{feature}</span>
                 </div>
               ))}
             </div>
 
             {/* CTA Button */}
-            <button className="w-full bg-blue-600 text-white rounded-lg py-4 font-medium hover:bg-blue-700 transition-colors">
+            <button className="w-full bg-[#C2F52B] text-black rounded-lg py-4 font-medium hover:bg-[#9CC621] transition-colors">
               Garantir minha vaga com desconto
             </button>
 

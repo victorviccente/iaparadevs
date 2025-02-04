@@ -185,12 +185,18 @@ const topics: Topic[] = [
     description: "Execute modelos de IA localmente em seu ambiente",
     tag: "LLMs",
     details: [
-      { title: "Modelos Locais", description: "Execute LLMs em sua máquina" },
+      { 
+        title: "Modelos Locais", 
+        description: "Execute LLMs em sua máquina" 
+      },
       {
         title: "Personalização",
         description: "Ajuste os modelos às suas necessidades",
       },
-      { title: "Privacidade", description: "Controle total sobre seus dados" },
+      { 
+        title: "Privacidade", 
+        description: "Controle total sobre seus dados" 
+      },
     ],
   },
   {
@@ -223,7 +229,10 @@ const topics: Topic[] = [
         title: "Integração com APIs",
         description: "Conexão com serviços de IA",
       },
-      { title: "Machine Learning", description: "Desenvolvimento de modelos" },
+      { 
+        title: "Machine Learning", 
+        description: "Desenvolvimento de modelos" 
+      },
       {
         title: "Automação Inteligente",
         description: "Scripts e processos otimizados",
@@ -255,16 +264,16 @@ const TopicCard: React.FC<TopicCardProps> = ({
         onClick={handleClick}
         className={`w-full text-left p-6 rounded-2xl border transition-all duration-200 ${
           isActiveStyle
-            ? "bg-blue-600 border-blue-500 shadow-lg"
-            : "bg-white border-gray-200 hover:shadow-lg"
+            ? "bg-[#C2F52B] border-[#9CC621]"
+            : "bg-black/80 border-white/10 hover:border-[#C2F52B]"
         } group relative`}
       >
         <div className="flex items-start gap-4">
           <div
             className={`p-3 rounded-xl ${
               isActiveStyle
-                ? "bg-blue-500/50 text-white"
-                : "bg-blue-50 text-blue-600"
+                ? "bg-black/20 text-black"
+                : "bg-black/40 text-[#C2F52B]"
             }`}
           >
             <topic.icon className="w-5 h-5" />
@@ -276,8 +285,8 @@ const TopicCard: React.FC<TopicCardProps> = ({
                 <span
                   className={`inline-block text-xs font-medium px-2 py-1 rounded-full ${
                     isActiveStyle
-                      ? "bg-blue-500/50 text-white"
-                      : "bg-blue-50 text-blue-600"
+                      ? "bg-black/20 text-black"
+                      : "bg-black/40 text-[#C2F52B]"
                   }`}
                 >
                   {topic.tag}
@@ -287,13 +296,13 @@ const TopicCard: React.FC<TopicCardProps> = ({
               {isMobile && (
                 <div
                   className={`flex items-center gap-2 ${
-                    isActiveStyle ? "text-white" : "text-gray-400"
+                    isActiveStyle ? "text-black" : "text-gray-400"
                   }`}
                 >
                   {isOpen ? (
                     <Unlock className="w-4 h-4" />
                   ) : (
-                    <Lock className="w-4 h-4 group-hover:text-blue-500 transition-colors" />
+                    <Lock className="w-4 h-4 group-hover:text-[#C2F52B] transition-colors" />
                   )}
                   <ChevronDown
                     className={`w-5 h-5 transform transition-transform ${
@@ -307,13 +316,13 @@ const TopicCard: React.FC<TopicCardProps> = ({
             <div>
               <h3
                 className={`text-lg font-semibold mb-2 ${
-                  isActiveStyle ? "text-white" : "text-gray-900"
+                  isActiveStyle ? "text-black" : "text-white"
                 }`}
               >
                 {topic.name}
               </h3>
 
-              <p className={isActiveStyle ? "text-blue-100" : "text-gray-600"}>
+              <p className={isActiveStyle ? "text-black/80" : "text-gray-300"}>
                 {topic.description}
               </p>
             </div>
@@ -332,7 +341,7 @@ const TopicCard: React.FC<TopicCardProps> = ({
               className="overflow-hidden"
             >
               <div className="p-6 pt-0">
-                <div className="space-y-6 mt-6 border-t pt-6">
+                <div className="space-y-6 mt-6 border-t border-white/10 pt-6">
                   {topic.details.map((detail, index) => (
                     <motion.div
                       key={index}
@@ -341,14 +350,14 @@ const TopicCard: React.FC<TopicCardProps> = ({
                       transition={{ duration: 0.2, delay: index * 0.05 }}
                       className="flex items-start gap-4"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center">
-                        <topic.icon className="w-4 h-4 text-blue-600" />
+                      <div className="w-8 h-8 rounded-lg bg-black/40 flex items-center justify-center">
+                        <topic.icon className="w-4 h-4 text-[#C2F52B]" />
                       </div>
                       <div>
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-white">
                           {detail.title}
                         </div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-gray-300">
                           {detail.description}
                         </div>
                       </div>
@@ -395,17 +404,17 @@ const Topics: React.FC = () => {
   };
 
   return (
-    <section id="tecnologias" className="py-24 bg-white relative">
+    <section id="tecnologias" className="py-24 bg-black relative">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
 
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4">
             O que você vai aprender
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Domine as ferramentas mais poderosas de IA e transforme sua maneira
             de programar
           </p>
@@ -441,16 +450,16 @@ const Topics: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-2xl border border-gray-200 overflow-hidden"
+                className="bg-black/80 rounded-2xl border border-white/10 overflow-hidden"
               >
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2 bg-blue-50 rounded-lg">
+                    <div className="p-2 bg-black/40 rounded-lg">
                       {React.createElement(topics[activeTopic].icon, {
-                        className: "w-5 h-5 text-blue-600",
+                        className: "w-5 h-5 text-[#C2F52B]",
                       })}
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-white">
                       {topics[activeTopic].name}
                     </h3>
                   </div>
@@ -458,16 +467,16 @@ const Topics: React.FC = () => {
                   <div className="space-y-6">
                     {topics[activeTopic].details.map((detail, index) => (
                       <div key={index} className="flex items-start gap-4">
-                        <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-lg bg-black/40 flex items-center justify-center">
                           {React.createElement(topics[activeTopic].icon, {
-                            className: "w-4 h-4 text-blue-600",
+                            className: "w-4 h-4 text-[#C2F52B]",
                           })}
                         </div>
                         <div>
-                          <div className="font-medium text-gray-900">
+                          <div className="font-medium text-white">
                             {detail.title}
                           </div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-sm text-gray-300">
                             {detail.description}
                           </div>
                         </div>
