@@ -15,6 +15,8 @@ interface ModuleCardProps {
   isSelected: boolean;
   onClick: () => void;
   isMobile: boolean;
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
 const modules: Module[] = [
@@ -140,12 +142,17 @@ const modules: Module[] = [
   }
 ];
 
-const ModuleCard: React.FC<ModuleCardProps> = ({ module, isSelected, onClick, isMobile }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const ModuleCard: React.FC<ModuleCardProps> = ({ 
+  module, 
+  isSelected, 
+  onClick, 
+  isMobile, 
+  isOpen,
+  onToggle 
+}) => {
   const handleClick = () => {
     if (isMobile) {
-      setIsOpen(!isOpen);
+      onToggle();
     } else {
       onClick();
     }
@@ -213,6 +220,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module, isSelected, onClick, is
 const CourseStructure: React.FC = () => {
   const [selectedModule, setSelectedModule] = useState(modules[0]);
   const [isMobile, setIsMobile] = useState(false);
+  const [openModuleId, setOpenModuleId] = useState<string | null>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -223,6 +231,10 @@ const CourseStructure: React.FC = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const handleModuleToggle = (moduleId: string) => {
+    setOpenModuleId(openModuleId === moduleId ? null : moduleId);
+  };
 
   return (
     <section className="py-24 bg-black relative">
@@ -258,6 +270,8 @@ const CourseStructure: React.FC = () => {
                         isSelected={selectedModule.id === module.id}
                         onClick={() => setSelectedModule(module)}
                         isMobile={isMobile}
+                        isOpen={openModuleId === module.id}
+                        onToggle={() => handleModuleToggle(module.id)}
                       />
                     ))}
                   </nav>
