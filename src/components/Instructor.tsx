@@ -144,16 +144,13 @@ const Instructor: React.FC = () => {
                   <div className="text-sm text-gray-300 mt-1">Projetos entregues</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-white">600+</div>
+                  <div className="text-3xl font-bold text-white">1000+</div>
                   <div className="text-sm text-gray-300 mt-1">Alunos formados</div>
                 </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-black bg-[#C2F52B] rounded-lg hover:bg-[#9CC621] transition-colors">
-                  Ver currículo completo
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                
                 
                 <div className="flex gap-4">
                   <a 

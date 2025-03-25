@@ -38,7 +38,7 @@ const Pricing = () => {
             {/* Promotion badge */}
             <div className="absolute top-6 right-6">
               <div className="px-3 py-1 text-sm font-medium text-black bg-[#C2F52B] rounded-full">
-                50% OFF
+                33% OFF
               </div>
             </div>
 
@@ -48,10 +48,10 @@ const Pricing = () => {
                 R$ 597
               </div>
               <div className="text-4xl font-bold text-white mb-2">
-                R$ 297
+                R$ 397
               </div>
               <div className="text-sm text-gray-400">
-                ou 12x de R$ 24,75
+                ou 12x de R$ 33,08
               </div>
             </div>
 
@@ -66,9 +66,14 @@ const Pricing = () => {
             </div>
 
             {/* CTA Button */}
-            <button className="w-full bg-[#C2F52B] text-black rounded-lg py-4 font-medium hover:bg-[#9CC621] transition-colors">
+            <a 
+              href="https://pay.kiwify.com.br/JE6szBY" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block w-full bg-[#C2F52B] text-black rounded-lg py-4 font-medium hover:bg-[#9CC621] transition-colors text-center"
+            >
               Garantir minha vaga com desconto
-            </button>
+            </a>
 
             {/* Guarantee text */}
             <div className="mt-4 text-center">

@@ -3,32 +3,28 @@ import { motion } from 'framer-motion';
 
 const testimonials = [
   {
-    text: "O curso é incrível! A didática do professor Victor é excepcional, consegui implementar IA em vários projetos da empresa e aumentei minha produtividade em 3x.",
-    author: "Marina Costa",
-    role: "Tech Lead",
-    company: "Stone Pagamentos",
-    image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop"
+    text: "O curso superou todas as minhas expectativas! A forma como o professor explica é tão clara que consegui aplicar IA em projetos reais logo nas primeiras aulas, triplicando minha eficiência no trabalho.",
+    author: "Camila Torres",
+    role: "Líder Técnica",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
   },
   {
-    text: "A melhor parte do curso é que cada conceito é explicado com exemplos práticos. Comecei a usar IA nos meus projetos já na primeira semana de curso.",
-    author: "Rafael Silva",
-    role: "Senior Developer",
-    company: "Nubank",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+    text: "O que mais me impressionou foi a praticidade. Cada conceito vem com exemplos que dá para usar na hora. Já na primeira semana, estava implementando IA nos meus projetos pessoais.",
+    author: "Vitória Silva",
+    role: "Desenvolvedora Sênior",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop"
   },
   {
-    text: "Estou impressionado com a quantidade de projetos práticos. O curso realmente entrega o que promete, e o suporte é excepcional.",
-    author: "André Santos",
-    role: "Software Engineer",
-    company: "iFood",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+    text: "Nunca vi um curso tão completo assim. Os projetos práticos são incríveis e o suporte é fora de série. Sinto que aprendi em meses o que levaria anos sozinha.",
+    author: "Gabriel Souza",
+    role: "Engenheiro de Software",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop"
   },
   {
-    text: "Já fiz vários cursos de IA, mas este é diferente. O foco em casos práticos e a comunidade ativa fazem toda a diferença.",
-    author: "Carla Mendes",
-    role: "Full Stack Developer",
-    company: "Zappts Technology",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop"
+    text: "Já tinha feito outros cursos de IA, mas este se destaca de verdade. A abordagem prática e a comunidade engajada me ajudaram a dar um salto na carreira.",
+    author: "Larissa Mendes",
+    role: "Desenvolvedora Full Stack",
+    image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=100&h=100&fit=crop"
   }
 ];
 
@@ -53,7 +49,7 @@ const Testimonials = () => {
             Amado por desenvolvedores
           </h2>
           <p className="text-lg text-gray-300">
-            Veja o que nossos alunos estão falando sobre o curso
+            Veja o que nossos alunos estão dizendo sobre o curso
           </p>
         </div>
 
@@ -82,7 +78,7 @@ const Testimonials = () => {
                     {testimonial.author}
                   </div>
                   <div className="text-gray-400">
-                    {testimonial.role} · <span className="text-[#C2F52B]">{testimonial.company}</span>
+                    {testimonial.role}
                   </div>
                 </div>
               </div>

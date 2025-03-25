@@ -12,6 +12,10 @@ import {
   ChevronDown,
   Lock,
   Unlock,
+  Code,
+  Linkedin,
+  Clock,
+  AlertCircle,
 } from "lucide-react";
 
 interface Detail {
@@ -25,6 +29,7 @@ interface Topic {
   description: string;
   tag: string;
   details: Detail[];
+  comingSoon?: boolean;
 }
 
 interface TopicCardProps {
@@ -179,31 +184,12 @@ const topics: Topic[] = [
       },
     ],
   },
-  {
-    name: "Ollama",
-    icon: Users,
-    description: "Execute modelos de IA localmente em seu ambiente",
-    tag: "LLMs",
-    details: [
-      { 
-        title: "Modelos Locais", 
-        description: "Execute LLMs em sua máquina" 
-      },
-      {
-        title: "Personalização",
-        description: "Ajuste os modelos às suas necessidades",
-      },
-      { 
-        title: "Privacidade", 
-        description: "Controle total sobre seus dados" 
-      },
-    ],
-  },
+  
   {
     name: "Linkedin Com IA",
-    icon: Users,
+    icon: Linkedin,
     description: "Otimize seu perfil profissional com IA",
-    tag: "Marketing",
+    tag: "Portfólio",
     details: [
       {
         title: "Otimização de Perfil",
@@ -220,10 +206,32 @@ const topics: Topic[] = [
     ],
   },
   {
+    name: "Ollama",
+    icon: Brain,
+    description: "Execute modelos de IA localmente em seu ambiente",
+    tag: "Próximos Módulos",
+    comingSoon: true,
+    details: [
+      { 
+        title: "Modelos Locais", 
+        description: "Execute LLMs em sua máquina" 
+      },
+      {
+        title: "Personalização",
+        description: "Ajuste os modelos às suas necessidades",
+      },
+      { 
+        title: "Privacidade", 
+        description: "Controle total sobre seus dados" 
+      },
+    ],
+  },
+  {
     name: "Python Com IA",
-    icon: Users,
+    icon: Code,
     description: "Desenvolva aplicações inteligentes com Python",
-    tag: "Desenvolvimento",
+    tag: "Próximos Módulos",
+    comingSoon: true,
     details: [
       {
         title: "Integração com APIs",
@@ -257,13 +265,16 @@ const TopicCard: React.FC<TopicCardProps> = ({
   };
 
   const isActiveStyle = isMobile ? isOpen : isActive;
+  const isComingSoon = topic.comingSoon;
 
   return (
     <motion.div className="w-full">
       <motion.button
         onClick={handleClick}
         className={`w-full text-left p-6 rounded-2xl border transition-all duration-200 ${
-          isActiveStyle
+          isComingSoon
+            ? "bg-black/60 border-white/5 hover:border-white/20"
+            : isActiveStyle
             ? "bg-[#C2F52B] border-[#9CC621]"
             : "bg-black/80 border-white/10 hover:border-[#C2F52B]"
         } group relative`}
@@ -271,12 +282,14 @@ const TopicCard: React.FC<TopicCardProps> = ({
         <div className="flex items-start gap-4">
           <div
             className={`p-3 rounded-xl ${
-              isActiveStyle
+              isComingSoon
+                ? "bg-black/40 text-gray-400"
+                : isActiveStyle
                 ? "bg-black/20 text-black"
                 : "bg-black/40 text-[#C2F52B]"
             }`}
           >
-            <topic.icon className="w-5 h-5" />
+            {isComingSoon ? <Clock className="w-5 h-5" /> : <topic.icon className="w-5 h-5" />}
           </div>
 
           <div className="flex-1">
@@ -284,7 +297,9 @@ const TopicCard: React.FC<TopicCardProps> = ({
               {topic.tag && (
                 <span
                   className={`inline-block text-xs font-medium px-2 py-1 rounded-full ${
-                    isActiveStyle
+                    isComingSoon
+                      ? "bg-black/40 text-gray-400"
+                      : isActiveStyle
                       ? "bg-black/20 text-black"
                       : "bg-black/40 text-[#C2F52B]"
                   }`}
@@ -296,10 +311,16 @@ const TopicCard: React.FC<TopicCardProps> = ({
               {isMobile && (
                 <div
                   className={`flex items-center gap-2 ${
-                    isActiveStyle ? "text-black" : "text-gray-400"
+                    isComingSoon
+                      ? "text-gray-500"
+                      : isActiveStyle 
+                      ? "text-black" 
+                      : "text-gray-400"
                   }`}
                 >
-                  {isOpen ? (
+                  {isComingSoon ? (
+                    <AlertCircle className="w-4 h-4" />
+                  ) : isOpen ? (
                     <Unlock className="w-4 h-4" />
                   ) : (
                     <Lock className="w-4 h-4 group-hover:text-[#C2F52B] transition-colors" />
@@ -316,13 +337,28 @@ const TopicCard: React.FC<TopicCardProps> = ({
             <div>
               <h3
                 className={`text-lg font-semibold mb-2 ${
-                  isActiveStyle ? "text-black" : "text-white"
+                  isComingSoon
+                    ? "text-gray-400"
+                    : isActiveStyle 
+                    ? "text-black" 
+                    : "text-white"
                 }`}
               >
                 {topic.name}
+                {isComingSoon && (
+                  <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-black/40 text-amber-400 border border-amber-400/30">
+                    Em breve
+                  </span>
+                )}
               </h3>
 
-              <p className={isActiveStyle ? "text-black/80" : "text-gray-300"}>
+              <p className={
+                isComingSoon 
+                  ? "text-gray-500" 
+                  : isActiveStyle 
+                  ? "text-black/80" 
+                  : "text-gray-300"
+              }>
                 {topic.description}
               </p>
             </div>
@@ -461,6 +497,11 @@ const Topics: React.FC = () => {
                     </div>
                     <h3 className="text-lg font-semibold text-white">
                       {topics[activeTopic].name}
+                      {topics[activeTopic].comingSoon && (
+                        <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-black/40 text-amber-400 border border-amber-400/30">
+                          Em breve
+                        </span>
+                      )}
                     </h3>
                   </div>
 

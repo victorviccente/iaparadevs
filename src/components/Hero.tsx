@@ -48,8 +48,8 @@ const Hero = () => {
                 transition={{ delay: 0.1 }}
                 className="text-xl text-gray-300 max-w-2xl mx-auto"
               >
-                Aprenda a construir agentes autônomos, automatizar seu desenvolvimento
-                e criar soluções inovadoras com Inteligência Artificial.
+                Acelere seu aprendizado em programação, desenvolva projetos mais rápido e aprimore
+                suas habilidades de desenvolvimento com o poder da Inteligência Artificial.
               </motion.p>
 
               <motion.div
@@ -62,10 +62,6 @@ const Hero = () => {
                   <a href="#preco">Começar Jornada</a>
                 </button>
                 
-                <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium text-white hover:bg-white/10 transition-colors">
-                  Ver demonstração
-                  <Play className="w-4 h-4" />
-                </button>
               </motion.div>
             </div>
           </div>
